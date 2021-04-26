@@ -33,4 +33,5 @@ tests/_support/_generated
 /.vagrant
 
 /config/dblocal.php
+/config/mailer_local.php
 

@@ -126,7 +126,9 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionSignup()
+    public function actionSignup(){
+        return $this->redirect(['signupcontoller/create']);
+    }
 
     public function actionCreateuser(){
 
