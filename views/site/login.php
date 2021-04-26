@@ -38,6 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
 
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11">
+                <?= Html::a('Anmelden',['createuser'], ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            </div>
+        </div>
+
     <?php ActiveForm::end(); ?>
 
     <div class="col-lg-offset-1" style="color:#999;">
