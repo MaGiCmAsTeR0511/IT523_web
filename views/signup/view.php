@@ -6,34 +6,14 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Signup */
 
-$this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Signups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="signup-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Vielen Dank für ihre Anmeldung bei unserem Prototypen!</h1>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'mail',
-            'token',
-            'invalid_date',
-        ],
-    ]) ?>
+    <div>Sie sollten in den näcshten paar Minuten ein Mail an die von Ihnen eingegeben Adresse erhalten. Dort finden Sie einen Link. Dieser Link ist bis <?= Yii::$app->formatter->asDatetime($model->invalid_date) ?> gültig!</div>
 
 </div>

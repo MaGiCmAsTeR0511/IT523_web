@@ -14,6 +14,18 @@ use yii\filters\VerbFilter;
  */
 class SignupController extends Controller
 {
+
+    /**
+     * generate Mail after saving the Signupmodel
+     */
+    private function sendsignupmail($id)
+    {
+        $model = $this->findModel($id);
+
+        Yii::$app->mailer->compose('signupmessage', ['token' => $model->token, 'invalid' => $model->invalid_date])->setFrom('it523@hohenauers.eu')->setTo($model->mail)->setSubject('Anmeldung bei Prototyp IT523 Kursverwaltung via Discord')->send();
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -66,7 +78,16 @@ class SignupController extends Controller
     {
         $model = new Signup();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $key = Yii::$app->getSecurity()->generateRandomString();
+            $model->token = $key;
+            $model->invalid_date = date('Y-m-d H:i:s', strtotime("+30 minutes"));
+
+            if ($model->save()) {
+                $this->sendsignupmail($model->id);
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
