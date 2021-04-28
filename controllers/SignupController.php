@@ -5,9 +5,11 @@ namespace app\controllers;
 use Yii;
 use app\models\Signup;
 use app\models\SignupSearch;
+use app\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\ForbiddenHttpException;
 
 /**
  * SignupController implements the CRUD actions for Signup model.
@@ -42,34 +44,6 @@ class SignupController extends Controller
     }
 
     /**
-     * Lists all Signup models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new SignupSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single Signup model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new Signup model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -94,6 +68,20 @@ class SignupController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    public function actionSetpassword($token)
+    {
+        $signup = Signup::find()->where(['token' => $token])->one();
+        if (strtotime($signup->invalid_date) > time()) {
+            $usermodel = new User();
+            
+
+            return $this->render('setpassword',['model' => $usermodel]);
+        }else{
+            throw new ForbiddenHttpException('Der benutze Link ist leider abgelaufen!');
+        }
+        die('asdasdasd');
     }
 
     /**
