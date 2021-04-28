@@ -6,6 +6,7 @@ use Yii;
 use app\models\Signup;
 use app\models\SignupSearch;
 use app\models\User;
+use app\models\Userdb;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -72,16 +73,19 @@ class SignupController extends Controller
 
     public function actionSetpassword($token)
     {
-        $signup = Signup::find()->where(['token' => $token])->one();
-        if (strtotime($signup->invalid_date) > time()) {
-            $usermodel = new User();
+       // $signup = Signup::find()->where(['token' => $token])->one();
+        //if (strtotime($signup->invalid_date) > time()) {
+            $usermodel = new Userdb();
+            var_dump(Yii::$app->request->post());
+            var_dump($token);
+            die();
             
 
             return $this->render('setpassword',['model' => $usermodel]);
-        }else{
-            throw new ForbiddenHttpException('Der benutze Link ist leider abgelaufen!');
-        }
-        die('asdasdasd');
+        //}else{
+        //    throw new ForbiddenHttpException('Der benutze Link ist leider abgelaufen!');
+        //}
+        //die('asdasdasd');
     }
 
     /**

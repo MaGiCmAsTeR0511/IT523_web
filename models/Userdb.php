@@ -10,9 +10,11 @@ use Yii;
  * @property int $id
  * @property string $email
  * @property string $password
+ * @property string $repeatpassword
  */
 class Userdb extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */
@@ -27,8 +29,10 @@ class Userdb extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email', 'password'], 'required'],
-            [['email', 'password'], 'string', 'max' => 255],
+            [['email', 'password','repeatpassword'], 'required'],
+            [['email', 'password','repeatpassword'], 'string', 'max' => 255],
+            ['repeatpassword', 'compare', 'compareAttribute'=>'password', 'message'=>"Passwords don't match" ]
+            
         ];
     }
 
@@ -41,6 +45,7 @@ class Userdb extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'email' => Yii::t('app', 'Email'),
             'password' => Yii::t('app', 'Password'),
+            'repeatpassword' => Yii::t('app','Repeat Password')
         ];
     }
 
