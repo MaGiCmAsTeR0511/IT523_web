@@ -42,6 +42,9 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
+        'session' => [
+            'name' => 'it523Kursverwaltung',
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -61,7 +64,6 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '/' => 'site/login',
                 'debug/<controller>/<action>' => 'debug/<controller>/<action>',
                 'login' => 'login',
                 'logout' => 'site/logout',
