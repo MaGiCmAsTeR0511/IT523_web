@@ -42,7 +42,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4><i class="glyphicon glyphicon-envelope"></i> Addresses</h4>
+            <h4><i class="glyphicon glyphicon-book"></i> Modulveranstaltungen</h4>
         </div>
         <div class="panel-body">
             <?php DynamicFormWidget::begin([
@@ -85,10 +85,12 @@ use wbraganca\dynamicform\DynamicFormWidget;
                             ?>
                             <?= $form->field($modul, "[{$i}]titel_mv")->textInput(['maxlength' => true]) ?>
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <?= $form->field($modul, "[{$i}]beschreibung_mv")->textarea(['rows' => 6]) ?>
                                 </div>
-                                <div class="col-sm-6">
+                            </div><!-- .row -->
+                            <div class="row">
+                            <div class="col-sm-6">
                                     <?= $form->field($modul, "[{$i}]von_mv")->widget(DatePicker::class, [
                                         'options' => ['placeholder' => 'Geben Sie bitte das Beginn Datum des Moduls ein...'],
                                         'pluginOptions' => [
@@ -97,9 +99,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         ]
                                     ]); ?>
                                 </div>
-                            </div><!-- .row -->
-                            <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <?= $form->field($modul, "[{$i}]bis_mv")->widget(DatePicker::class, [
                                         'options' => ['placeholder' => 'Geben Sie bitte das Ende Datum des Moduls ein...'],
                                         'pluginOptions' => [
