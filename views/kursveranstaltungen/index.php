@@ -28,9 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id_kv',
             'titel_kv',
-            'von_kv',
-            'bis_kv',
             'beschreibung_kv:ntext',
+            'von_kv:date',
+            'bis_kv:date',
             //'sigdate_kv',
             //'sigid_kv',
 

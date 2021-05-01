@@ -60,8 +60,11 @@ class KursveranstaltungenController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'modulveranstaltungen' => $model['modulVeranstaltungens']
         ]);
     }
 
@@ -113,10 +116,8 @@ class KursveranstaltungenController extends Controller
                                 die('Asdasdasd');
                                 $transaction->rollBack();
                                 break;
-                            } 
+                            }
                         }
-                    }else{
-                        die('asdasdasdasd');
                     }
                     var_dump($flag);
                     if ($flag) {
@@ -178,7 +179,7 @@ class KursveranstaltungenController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = KursVeranstaltungen::findOne($id)) !== null) {
+        if (($model = KursVeranstaltungen::find()->joinWith('modulVeranstaltungens')->where(['id_kv' => $id])->one()) !== null) {
             return $model;
         }
 

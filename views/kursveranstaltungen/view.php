@@ -1,10 +1,12 @@
 <?php
 
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\KursVeranstaltungen */
+/* @var $modulveranstaltungen app\models\ModulVeranstaltungen */
 
 $this->title = $model->id_kv;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Kurs Veranstaltungens'), 'url' => ['index']];
@@ -30,12 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id_kv',
-            'titel_kv',
-            'von_kv',
-            'bis_kv',
             'beschreibung_kv:ntext',
-            'sigdate_kv',
-            'sigid_kv',
+            'titel_kv',
+            'von_kv:date',
+            'bis_kv:date',
         ],
     ]) ?>
 
