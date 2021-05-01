@@ -20,7 +20,7 @@ class m210430_172015_create_modul_veranstaltungen_table extends Migration
             'titel_mv' => $this->string(80)->notNull(),
             'beschreibung_mv' => $this->text(2000)->notNull(),
             'sigid_mv' => $this->integer()->notNull(),
-            'sigdate_mav' => $this->dateTime()->notNull()
+            'sigdate_mv' => $this->dateTime()->notNull()
         ]);
     
 

@@ -14,7 +14,7 @@ use Yii;
  * @property string $titel_mv
  * @property string $beschreibung_mv
  * @property int $sigid_mv
- * @property string $sigdate_mav
+ * @property string $sigdate_mv
  *
  * @property KursVeranstaltungen $idkvMv
  * @property User $sigidMv
@@ -35,7 +35,7 @@ class ModulVeranstaltungen extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idkv_mv', 'von_mv', 'bis_mv', 'titel_mv', 'beschreibung_mv', 'sigid_mv', 'sigdate_mav'], 'required'],
+            [['idkv_mv', 'von_mv', 'bis_mv', 'titel_mv', 'beschreibung_mv', 'sigid_mv', 'sigdate_mv'], 'required'],
             [['idkv_mv', 'sigid_mv'], 'integer'],
             [['von_mv', 'bis_mv', 'sigdate_mav'], 'safe'],
             [['beschreibung_mv'], 'string'],
@@ -58,7 +58,7 @@ class ModulVeranstaltungen extends \yii\db\ActiveRecord
             'titel_mv' => Yii::t('app', 'Titel Mv'),
             'beschreibung_mv' => Yii::t('app', 'Beschreibung Mv'),
             'sigid_mv' => Yii::t('app', 'Sigid Mv'),
-            'sigdate_mav' => Yii::t('app', 'Sigdate Mav'),
+            'sigdate_mv' => Yii::t('app', 'Sigdate Mav'),
         ];
     }
 

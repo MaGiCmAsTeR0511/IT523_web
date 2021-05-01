@@ -20,6 +20,7 @@ class m210430_170743_create_kurs_veranstaltungen_table extends Migration
             'beschreibung_kv' => $this->text(30000)->notNull(),
             'sigdate_kv' => $this->dateTime()->notNull(),
             'sigid_kv' => $this->integer()->notNull(),
+            'deleted_kv' => $this->boolean()->notNull()
         ]);
 
         // add foreign key for table `user`
@@ -43,7 +44,7 @@ class m210430_170743_create_kurs_veranstaltungen_table extends Migration
          // drops index for column `sigid_kv`
          $this->dropForeignKey('sigid_kv_FK', '{{%kurs_veranstaltungen}}');
 
-         
+
         $this->dropTable('{{%kurs_veranstaltungen}}');
     }
 }

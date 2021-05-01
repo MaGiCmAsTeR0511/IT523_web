@@ -1,7 +1,7 @@
 <?php
 
 use kartik\date\DatePicker;
-use kartik\widgets\DateTimePicker;
+use kartik\datetime\DateTimePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use wbraganca\dynamicform\DynamicFormWidget;
@@ -89,22 +89,23 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     <?= $form->field($modul, "[{$i}]beschreibung_mv")->textarea(['rows' => 6]) ?>
                                 </div>
                             </div><!-- .row -->
-                            <div class="row">
-                            <div class="col-sm-6">
-                                    <?= $form->field($modul, "[{$i}]von_mv")->widget(DatePicker::class, [
+                            <div class="row timepicker"> 
+                            
+                                <div class="col-sm-6">
+                                    <?= $form->field($modul, "[{$i}]von_mv")->widget(DateTimePicker::class, [
                                         'options' => ['placeholder' => 'Geben Sie bitte das Beginn Datum des Moduls ein...'],
                                         'pluginOptions' => [
                                             'autoclose' => true,
-                                            'format' => 'dd.mm.yyyy hh:ii:ss'
+                                            'format' => 'dd.mm.yyyy hh:ii:00'
                                         ]
                                     ]); ?>
                                 </div>
                                 <div class="col-sm-6">
-                                    <?= $form->field($modul, "[{$i}]bis_mv")->widget(DatePicker::class, [
+                                    <?= $form->field($modul, "[{$i}]bis_mv")->widget(DateTimePicker::class, [
                                         'options' => ['placeholder' => 'Geben Sie bitte das Ende Datum des Moduls ein...'],
                                         'pluginOptions' => [
                                             'autoclose' => true,
-                                            'format' => 'dd.mm.yyyy hh:ii:ss'
+                                            'format' => 'dd.mm.yyyy hh:ii:00'
                                         ]
                                     ]) ?>
                                 </div>

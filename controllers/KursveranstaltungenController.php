@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\assets\KursverwaltungAsset;
 use Yii;
 use app\models\KursVeranstaltungen;
 use app\models\KursVeranstaltungenSearch;
@@ -9,7 +10,12 @@ use app\models\ModulVeranstaltungen;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\Model;
+use app\models\Model;
+
+use Exception;
+use yii\helpers\ArrayHelper;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * KursvernstaltungenController implements the CRUD actions for KursVeranstaltungen model.
@@ -66,14 +72,15 @@ class KursveranstaltungenController extends Controller
      */
     public function actionCreate()
     {
+        KursverwaltungAsset::register($this->view);
+        $user = Yii::$app->user;
         $model = new KursVeranstaltungen();
 
         $modules = [new ModulVeranstaltungen()];
         if ($model->load(Yii::$app->request->post())) {
 
-            $modules = Model::createMultiple(ModulVeranstaltungen::classname());
+            $modules = Model::createMultiple(ModulVeranstaltungen::class);
             Model::loadMultiple($modules, Yii::$app->request->post());
-
             // ajax validation
             if (Yii::$app->request->isAjax) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
@@ -83,22 +90,35 @@ class KursveranstaltungenController extends Controller
                 );
             }
 
+            $model->von_kv = date('Y-m-d', strtotime($model->von_kv));
+            $model->bis_kv = date('Y-m-d', strtotime($model->bis_kv));
+            $model->sigid_kv = $user->id;
+            $model->sigdate_kv = date('Y-m-d H:i:s');
             // validate all models
             $valid = $model->validate();
-            $valid = Model::validateMultiple($modules) && $valid;
 
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
-                    if ($flag = $model->save(false)) {
+                    $model->sigdate_kv = date('Y-m-d H:i:s');
+                    $model->sigid_kv = $user->id;
+                    if ($flag = $model->save()) {
                         foreach ($modules as $modul) {
+                            $modul->von_mv = date('Y-m-d H:i:s', strtotime($modul->von_mv));
+                            $modul->bis_mv = date('Y-m-d H:i:s', strtotime($modul->bis_mv));
                             $modul->idkv_mv = $model->id_kv;
-                            if (!($flag = $modul->save(false))) {
+                            $modul->sigdate_mv = date('Y-m-d H:i:s');
+                            $modul->sigid_mv = $user->id;
+                            if (!($flag = $modul->save())) {
+                                die('Asdasdasd');
                                 $transaction->rollBack();
                                 break;
-                            }
+                            } 
                         }
+                    }else{
+                        die('asdasdasdasd');
                     }
+                    var_dump($flag);
                     if ($flag) {
                         $transaction->commit();
                         return $this->redirect(['view', 'id' => $model->id_kv]);
