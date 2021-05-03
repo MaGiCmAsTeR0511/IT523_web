@@ -40,8 +40,8 @@ class ModulVeranstaltungen extends \yii\db\ActiveRecord
             [['von_mv', 'bis_mv', 'sigdate_mav'], 'safe'],
             [['beschreibung_mv'], 'string'],
             [['titel_mv'], 'string', 'max' => 80],
-            [['idkv_mv'], 'exist', 'skipOnError' => true, 'targetClass' => KursVeranstaltungen::className(), 'targetAttribute' => ['idkv_mv' => 'id_kv']],
-            [['sigid_mv'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['sigid_mv' => 'id']],
+            [['idkv_mv'], 'exist', 'skipOnError' => true, 'targetClass' => KursVeranstaltungen::class, 'targetAttribute' => ['idkv_mv' => 'id_kv']],
+            [['sigid_mv'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['sigid_mv' => 'id']],
         ];
     }
 
@@ -69,7 +69,7 @@ class ModulVeranstaltungen extends \yii\db\ActiveRecord
      */
     public function getIdkvMv()
     {
-        return $this->hasOne(KursVeranstaltungen::className(), ['id_kv' => 'idkv_mv']);
+        return $this->hasOne(KursVeranstaltungen::class, ['id_kv' => 'idkv_mv']);
     }
 
     /**
@@ -79,7 +79,7 @@ class ModulVeranstaltungen extends \yii\db\ActiveRecord
      */
     public function getSigidMv()
     {
-        return $this->hasOne(User::className(), ['id' => 'sigid_mv']);
+        return $this->hasOne(User::class, ['id' => 'sigid_mv']);
     }
 
     /**

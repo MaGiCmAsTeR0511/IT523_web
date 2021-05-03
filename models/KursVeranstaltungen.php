@@ -43,7 +43,7 @@ class KursVeranstaltungen extends \yii\db\ActiveRecord
             [['beschreibung_kv'], 'string'],
             [['sigid_kv', 'deleted_kv'], 'integer'],
             [['titel_kv'], 'string', 'max' => 45],
-            [['sigid_kv'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['sigid_kv' => 'id']],
+            [['sigid_kv'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['sigid_kv' => 'id']],
         ];
     }
 
@@ -71,7 +71,7 @@ class KursVeranstaltungen extends \yii\db\ActiveRecord
      */
     public function getSigidKv()
     {
-        return $this->hasOne(User::className(), ['id' => 'sigid_kv']);
+        return $this->hasOne(User::class, ['id' => 'sigid_kv']);
     }
 
     /**
@@ -81,7 +81,7 @@ class KursVeranstaltungen extends \yii\db\ActiveRecord
      */
     public function getKursanmeldungens()
     {
-        return $this->hasMany(Kursanmeldungen::className(), ['idkv_ka' => 'id_kv']);
+        return $this->hasMany(Kursanmeldungen::class, ['idkv_ka' => 'id_kv']);
     }
 
     /**
@@ -91,7 +91,7 @@ class KursVeranstaltungen extends \yii\db\ActiveRecord
      */
     public function getModulVeranstaltungens()
     {
-        return $this->hasMany(ModulVeranstaltungen::className(), ['idkv_mv' => 'id_kv']);
+        return $this->hasMany(ModulVeranstaltungen::class, ['idkv_mv' => 'id_kv']);
     }
 
     /**
@@ -101,7 +101,7 @@ class KursVeranstaltungen extends \yii\db\ActiveRecord
      */
     public function getSendUpdatesToDcs()
     {
-        return $this->hasMany(SendUpdatesToDc::className(), ['idkv_sudc' => 'id_kv']);
+        return $this->hasMany(SendUpdatesToDc::class, ['idkv_sudc' => 'id_kv']);
     }
 
     /**
@@ -111,7 +111,7 @@ class KursVeranstaltungen extends \yii\db\ActiveRecord
      */
     public function getUserToKursveranstaltungs()
     {
-        return $this->hasMany(UserToKursveranstaltung::className(), ['idkv_utkv' => 'id_kv']);
+        return $this->hasMany(UserToKursveranstaltung::class, ['idkv_utkv' => 'id_kv']);
     }
 
     /**
