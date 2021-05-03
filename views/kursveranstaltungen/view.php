@@ -39,4 +39,15 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <?= GridView::widget([
+        'dataProvider' => $modulveranstaltungen,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'titel_mv',
+            'beschreibung_mv:ntext',
+            'von_mv:datetime',
+            'bis_mv:datetime'
+        ]
+    ])?>
+
 </div>

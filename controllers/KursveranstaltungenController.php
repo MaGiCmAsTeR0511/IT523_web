@@ -11,8 +11,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Model;
-
+use app\models\SendUpdatesToDc;
+use app\models\UserToKursveranstaltung;
 use Exception;
+use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
@@ -45,7 +47,7 @@ class KursveranstaltungenController extends Controller
     {
         $searchModel = new KursVeranstaltungenSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -61,10 +63,17 @@ class KursveranstaltungenController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        
+
+        $modulveraProvider = new ActiveDataProvider([
+            'query' => ModulVeranstaltungen::find()->where(['idkv_mv' => $model->id_kv]),
+            'pagination' => [
+                'pageSize' => 10
+            ]
+        ]);
+
         return $this->render('view', [
             'model' => $model,
-            'modulveranstaltungen' => $model['modulVeranstaltungens']
+            'modulveranstaltungen' => $modulveraProvider
         ]);
     }
 
@@ -97,15 +106,15 @@ class KursveranstaltungenController extends Controller
             $model->bis_kv = date('Y-m-d', strtotime($model->bis_kv));
             $model->sigid_kv = $user->id;
             $model->sigdate_kv = date('Y-m-d H:i:s');
+            $model->deleted_kv = 0;
             // validate all models
             $valid = $model->validate();
 
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
-                    $model->sigdate_kv = date('Y-m-d H:i:s');
-                    $model->sigid_kv = $user->id;
                     if ($flag = $model->save()) {
+
                         foreach ($modules as $modul) {
                             $modul->von_mv = date('Y-m-d H:i:s', strtotime($modul->von_mv));
                             $modul->bis_mv = date('Y-m-d H:i:s', strtotime($modul->bis_mv));
@@ -113,13 +122,24 @@ class KursveranstaltungenController extends Controller
                             $modul->sigdate_mv = date('Y-m-d H:i:s');
                             $modul->sigid_mv = $user->id;
                             if (!($flag = $modul->save())) {
-                                die('Asdasdasd');
                                 $transaction->rollBack();
                                 break;
                             }
                         }
+                        // Save user to Kursveranstaltung
+                        $utk = new UserToKursveranstaltung();
+                        $utk->iduser_utkv = $user->id;
+                        $utk->idkv_utkv = $model->id_kv;
+                        if (!$utk->save()) {
+                            throw new Exception('user zu Kursveranstaltung nicht gespeichert!');
+                        }
+
+                        $sutd = new SendUpdatesToDc();
+                        $sutd->idkv_sudc = $model->id_kv;
+                        if (!$sutd->save()) {
+                            throw new Exception('Send updates to DC konnte nicht gespeichert werden');
+                        }
                     }
-                    var_dump($flag);
                     if ($flag) {
                         $transaction->commit();
                         return $this->redirect(['view', 'id' => $model->id_kv]);
@@ -145,14 +165,71 @@ class KursveranstaltungenController extends Controller
      */
     public function actionUpdate($id)
     {
+        KursverwaltungAsset::register($this->view);
+        $user = Yii::$app->user;
         $model = $this->findModel($id);
+        $model->von_kv = date('d.m.Y',strtotime($model->von_kv));
+        $model->bis_kv = date('d.m.Y',strtotime($model->bis_kv));
+        $modules = $model->modulVeranstaltungens;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_kv]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $oldIDs = ArrayHelper::map($modules, 'id_mv', 'id_mv');
+            $modules = Model::createMultiple(ModulVeranstaltungen::class, $modules);
+            Model::loadMultiple($modules, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modules, 'id_mv', 'id_mv')));
+
+            // ajax validation
+            if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ArrayHelper::merge(
+                    ActiveForm::validateMultiple($modules),
+                    ActiveForm::validate($model)
+                );
+            }
+
+            // validate all models
+            $valid = $model->validate();
+            //$valid = Model::validateMultiple($modules) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    $model->sigdate_kv = date('Y-m-d H:i:s');
+                    $model->sigid_kv = $user->id;
+                    if ($flag = $model->save()) {
+                        if (!empty($deletedIDs)) {
+                            ModulVeranstaltungen::deleteAll(['id_mv' => $deletedIDs]);
+                        }
+                        foreach ($modules as $module) {
+                            $module->von_mv = date('Y-m-d H:i:s', strtotime($module->von_mv));
+                            $module->bis_mv = date('Y-m-d H:i:s', strtotime($module->bis_mv));
+                            $module->sigdate_mv = date('Y-m-d H:i:s');
+                            $module->sigid_mv = $user->id;
+                            if (!($flag = $module->save())) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                        $sutd = new SendUpdatesToDc();
+                        $sutd->idkv_sudc = $model->id_kv;
+                        if (!$sutd->save()) {
+                            throw new Exception('Send updates to DC konnte nicht gespeichert werden');
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id_kv]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modules' => (empty($modules)) ? [new ModulVeranstaltungen()] : $modules
         ]);
     }
 
@@ -165,7 +242,8 @@ class KursveranstaltungenController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->deleted_kv = 1;
 
         return $this->redirect(['index']);
     }
@@ -179,7 +257,7 @@ class KursveranstaltungenController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = KursVeranstaltungen::find()->joinWith('modulVeranstaltungens')->where(['id_kv' => $id])->one()) !== null) {
+        if (($model = KursVeranstaltungen::find()->where(['id_kv' => $id])->one()) !== null) {
             return $model;
         }
 

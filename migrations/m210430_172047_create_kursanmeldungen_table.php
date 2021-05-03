@@ -36,6 +36,6 @@ class m210430_172047_create_kursanmeldungen_table extends Migration
     {
         $this->dropForeignKey('idkv_ka_FK', '{{%kursanmeldungen}}');
 
-        $this->dropTable('{{%kursanmledungen}}');
+        $this->dropTable('{{%kursanmeldungen}}');
     }
 }

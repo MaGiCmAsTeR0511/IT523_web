@@ -80,7 +80,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
                             <?php
                             // necessary for update action.
                             if (!$modul->isNewRecord) {
-                                echo Html::activeHiddenInput($modul, "[{$i}]id");
+                                echo Html::activeHiddenInput($modul, "[{$i}]id_mv");
+                                $modul->von_mv = date('d.m.Y H:i:s',strtotime($modul->von_mv));
+                                $modul->bis_mv = date('d.m.Y H:i:s',strtotime($modul->bis_mv));
                             }
                             ?>
                             <?= $form->field($modul, "[{$i}]titel_mv")->textInput(['maxlength' => true]) ?>

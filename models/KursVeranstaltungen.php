@@ -14,6 +14,7 @@ use Yii;
  * @property string $beschreibung_kv
  * @property string $sigdate_kv
  * @property int $sigid_kv
+ * @property int $deleted_kv
  *
  * @property User $sigidKv
  * @property Kursanmeldungen[] $kursanmeldungens
@@ -37,10 +38,10 @@ class KursVeranstaltungen extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['titel_kv', 'von_kv', 'bis_kv', 'beschreibung_kv', 'sigdate_kv', 'sigid_kv'], 'required'],
+            [['titel_kv', 'von_kv', 'bis_kv', 'beschreibung_kv', 'sigdate_kv', 'sigid_kv', 'deleted_kv'], 'required'],
             [['von_kv', 'bis_kv', 'sigdate_kv'], 'safe'],
             [['beschreibung_kv'], 'string'],
-            [['sigid_kv'], 'integer'],
+            [['sigid_kv', 'deleted_kv'], 'integer'],
             [['titel_kv'], 'string', 'max' => 45],
             [['sigid_kv'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['sigid_kv' => 'id']],
         ];
@@ -59,6 +60,7 @@ class KursVeranstaltungen extends \yii\db\ActiveRecord
             'beschreibung_kv' => Yii::t('app', 'Beschreibung Kv'),
             'sigdate_kv' => Yii::t('app', 'Sigdate Kv'),
             'sigid_kv' => Yii::t('app', 'Sigid Kv'),
+            'deleted_kv' => Yii::t('app', 'Deleted Kv'),
         ];
     }
 
