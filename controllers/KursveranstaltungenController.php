@@ -12,6 +12,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Model;
 use app\models\SendUpdatesToDc;
+use app\models\SendUpdatesToUser;
 use app\models\UserToKursveranstaltung;
 use Exception;
 use yii\data\ActiveDataProvider;
@@ -47,7 +48,7 @@ class KursveranstaltungenController extends Controller
     {
         $searchModel = new KursVeranstaltungenSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -168,8 +169,8 @@ class KursveranstaltungenController extends Controller
         KursverwaltungAsset::register($this->view);
         $user = Yii::$app->user;
         $model = $this->findModel($id);
-        $model->von_kv = date('d.m.Y',strtotime($model->von_kv));
-        $model->bis_kv = date('d.m.Y',strtotime($model->bis_kv));
+        $model->von_kv = date('d.m.Y', strtotime($model->von_kv));
+        $model->bis_kv = date('d.m.Y', strtotime($model->bis_kv));
         $modules = $model->modulVeranstaltungens;
 
         if ($model->load(Yii::$app->request->post())) {
@@ -195,6 +196,8 @@ class KursveranstaltungenController extends Controller
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
+                    $model->von_kv = date('Y-m-d', strtotime($model->von_kv));
+                    $model->bis_kv = date('Y-m-d', strtotime($model->bis_kv));
                     $model->sigdate_kv = date('Y-m-d H:i:s');
                     $model->sigid_kv = $user->id;
                     if ($flag = $model->save()) {
@@ -211,8 +214,8 @@ class KursveranstaltungenController extends Controller
                                 break;
                             }
                         }
-                        $sutd = new SendUpdatesToDc();
-                        $sutd->idkv_sudc = $model->id_kv;
+                        $sutd = new SendUpdatesToUser();
+                        $sutd->idkv_sutu = $model->id_kv;
                         if (!$sutd->save()) {
                             throw new Exception('Send updates to DC konnte nicht gespeichert werden');
                         }
