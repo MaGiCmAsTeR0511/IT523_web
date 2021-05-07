@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\KursVeranstaltungen */
 /* @var $modulveranstaltungen app\models\ModulVeranstaltungen */
 
-$this->title = $model->id_kv;
+$this->title = $model->titel_kv;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Kurs Veranstaltungens'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -48,6 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'von_mv:datetime',
             'bis_mv:datetime'
         ]
-    ])?>
+    ]) ?>
 
 </div>

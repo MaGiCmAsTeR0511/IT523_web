@@ -32,8 +32,8 @@ class UserToKursveranstaltung extends \yii\db\ActiveRecord
         return [
             [['iduser_utkv', 'idkv_utkv'], 'required'],
             [['iduser_utkv', 'idkv_utkv'], 'integer'],
-            [['idkv_utkv'], 'exist', 'skipOnError' => true, 'targetClass' => KursVeranstaltungen::className(), 'targetAttribute' => ['idkv_utkv' => 'id_kv']],
-            [['iduser_utkv'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['iduser_utkv' => 'id']],
+            [['idkv_utkv'], 'exist', 'skipOnError' => true, 'targetClass' => KursVeranstaltungen::class, 'targetAttribute' => ['idkv_utkv' => 'id_kv']],
+            [['iduser_utkv'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['iduser_utkv' => 'id']],
         ];
     }
 

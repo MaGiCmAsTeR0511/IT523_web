@@ -111,7 +111,7 @@ class KursVeranstaltungen extends \yii\db\ActiveRecord
      */
     public function getUserToKursveranstaltungs()
     {
-        return $this->hasMany(UserToKursveranstaltung::class, ['idkv_utkv' => 'id_kv']);
+        return $this->hasMany(UserToKursveranstaltung::class, ['idkv_utkv' => 'id_kv'])->andOnCondition(['']);
     }
 
     /**

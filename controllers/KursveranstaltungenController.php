@@ -65,6 +65,7 @@ class KursveranstaltungenController extends Controller
     {
         $model = $this->findModel($id);
 
+        $anmeldungen = UserToKursveranstaltung::find()->where(['idkv_utkv' => $model->id_kv])->select(['iduser_utkv'])->groupBy(['iduser_utkv'])->count();
         $modulveraProvider = new ActiveDataProvider([
             'query' => ModulVeranstaltungen::find()->where(['idkv_mv' => $model->id_kv]),
             'pagination' => [
@@ -74,7 +75,8 @@ class KursveranstaltungenController extends Controller
 
         return $this->render('view', [
             'model' => $model,
-            'modulveranstaltungen' => $modulveraProvider
+            'modulveranstaltungen' => $modulveraProvider,
+            'anmeldungen' => $anmeldungen
         ]);
     }
 
