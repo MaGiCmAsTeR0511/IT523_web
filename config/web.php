@@ -21,12 +21,22 @@ $config = [
     'id' => 'IT523',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'de-AT',
     'timeZone' => 'Europe/Berlin',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'i18n' => [
+            'translations' => [
+                'app' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'en-US',
+                ],
+            ],
+        ],
         'formatter' => [
             'dateFormat' => 'dd.MM.YYYY',
             'datetimeFormat' => 'dd.MM.yyyy H:mm:ss'
