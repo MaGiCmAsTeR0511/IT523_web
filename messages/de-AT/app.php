@@ -46,4 +46,8 @@ return [
     'Titel Mv' => 'Modultitel',
     'Von Kv' => 'Kurs von',
     'Von Mv' => 'Modul von',
+    'Create Kurs Veranstaltungen' => 'Kursveranstaltung anlegen', 
+    'Save' => 'Speichern',
+    'Update' => 'Aktualisieren',
+    'Delete' => 'Löschen'
 ];
