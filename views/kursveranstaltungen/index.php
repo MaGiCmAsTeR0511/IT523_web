@@ -18,11 +18,17 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'Create Kurs Veranstaltungen'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function ($model) {
+            if ($model->deleted_kv === 1) {
+                return ['class' => 'danger'];
+            }
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -31,9 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'beschreibung_kv:ntext',
             'von_kv:date',
             'bis_kv:date',
-            //'sigdate_kv',
-            //'sigid_kv',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

@@ -120,3 +120,5 @@ In you Overview of all your created Courses you can update oder delete the cours
 <p align="center">
         <img src=".\web\images\usage_webapplikation\kurs_veranstaltungen_überischt.png">
 </p>
+
+After you created the Course it will be automatically send to the DiscordServer. 
