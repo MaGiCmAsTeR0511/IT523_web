@@ -71,3 +71,52 @@ Now Yii will try to create the Tables and Foreign Key for this applikation.
 
 
 ### Now your Applikation should be ready to run on your Webserver
+
+
+
+User Manual
+-------------
+
+To use this Applikation you have to Signup for it. To Signup you have to choose an username, you have to use an Email to receive mails and you have to choose a password.
+
+<p align="center">
+        <img src=".\web\images\usage_webapplikation\Signup_form.png">
+</p>
+
+If your user is created you will become following message.
+
+<p align="center">
+        <img src=".\web\images\usage_webapplikation\Signup_form_result.png">
+</p>
+
+Now you schould have received an Email on your given Mailadresse with an Link in it. Wenn you follow this link your user is enabled an you will be logged in automatically to use the applikation.
+
+Now you can create Courses in this Applikation. This is shown on the top Menu
+<p align="center">
+        <img src=".\web\images\usage_webapplikation\logged_in.png">
+</p>
+
+### Course Creation
+
+To create an Course that the DiscordUser can attend and register for this course.
+To create an course you have to fill in the following fields.
+
+<p align="center">
+        <img src=".\web\images\usage_webapplikation\kurs_veranstaltung anlegen.png">
+</p>
+
+In "Modulveranstaltungen" you cann add more modules this can be done with the green plus. You can delete modules aswell. The minimum number of modules is 1.
+
+When the Course is created you will be directed to an detailsview. Hier ar the inserted values listed again.
+<p align="center">
+        <img src=".\web\images\usage_webapplikation\kurs_details.png">
+</p>
+
+In this view you can update oder delted this course if you want.
+
+
+In you Overview of all your created Courses you can update oder delete the course directly with the pencil_icon (update) and trash_bin (delete);
+
+<p align="center">
+        <img src=".\web\images\usage_webapplikation\kurs_veranstaltungen_überischt.png">
+</p>

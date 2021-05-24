@@ -81,8 +81,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
                             // necessary for update action.
                             if (!$modul->isNewRecord) {
                                 echo Html::activeHiddenInput($modul, "[{$i}]id_mv");
-                                $modul->von_mv = date('d.m.Y H:i:s',strtotime($modul->von_mv));
-                                $modul->bis_mv = date('d.m.Y H:i:s',strtotime($modul->bis_mv));
+                                $modul->von_mv = date('d.m.Y H:i',strtotime($modul->von_mv));
+                                $modul->bis_mv = date('d.m.Y H:i',strtotime($modul->bis_mv));
                             }
                             ?>
                             <?= $form->field($modul, "[{$i}]titel_mv")->textInput(['maxlength' => true]) ?>
@@ -96,18 +96,20 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 <div class="col-sm-6">
                                     <?= $form->field($modul, "[{$i}]von_mv")->widget(DateTimePicker::class, [
                                         'options' => ['placeholder' => 'Geben Sie bitte das Beginn Datum des Moduls ein...'],
+                                        'convertFormat' => true,
                                         'pluginOptions' => [
                                             'autoclose' => true,
-                                            'format' => 'dd.mm.yyyy hh:ii:00'
+                                            'format' => 'dd.mm.yyyy HH:i'
                                         ]
                                     ]); ?>
                                 </div>
                                 <div class="col-sm-6">
                                     <?= $form->field($modul, "[{$i}]bis_mv")->widget(DateTimePicker::class, [
                                         'options' => ['placeholder' => 'Geben Sie bitte das Ende Datum des Moduls ein...'],
+                                        'convertFormat' => true,
                                         'pluginOptions' => [
                                             'autoclose' => true,
-                                            'format' => 'dd.mm.yyyy hh:ii:00'
+                                            'format' => 'dd.mm.yyyy HH:i'
                                         ]
                                     ]) ?>
                                 </div>

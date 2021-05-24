@@ -6,10 +6,9 @@ $(document).ready(function () {
                 $hasDatepicker.prop("disabled", false);
                 $(this).parent().removeData().datetimepicker('remove');
                 $(this).parent().datetimepicker({
-                    language: 'de',
+                    convertFormat: true,
                     format: 'dd.mm.yyyy hh:ii',
                     autoclose: true,
-                    todayHighlight: true,
                 });
             });
         }

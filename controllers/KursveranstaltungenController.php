@@ -93,7 +93,6 @@ class KursveranstaltungenController extends Controller
 
         $modules = [new ModulVeranstaltungen()];
         if ($model->load(Yii::$app->request->post())) {
-
             $modules = Model::createMultiple(ModulVeranstaltungen::class);
             Model::loadMultiple($modules, Yii::$app->request->post());
             // ajax validation
@@ -129,6 +128,7 @@ class KursveranstaltungenController extends Controller
                                 break;
                             }
                         }
+                       
                         // Save user to Kursveranstaltung
                         $utk = new UserToKursveranstaltung();
                         $utk->iduser_utkv = $user->id;
