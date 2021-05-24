@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\KursVeranstaltungen;
+use Yii;
 
 /**
  * KursVeranstaltungenSearch represents the model behind the search form of `app\models\KursVeranstaltungen`.
@@ -40,7 +41,7 @@ class KursVeranstaltungenSearch extends KursVeranstaltungen
      */
     public function search($params)
     {
-        $query = KursVeranstaltungen::find();
+        $query = KursVeranstaltungen::find()->joinWith(['userToKursveranstaltungs'])->where(['iduser_utkv' => Yii::$app->user->id]);
 
         // add conditions that should always apply here
 

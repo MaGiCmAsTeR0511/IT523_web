@@ -249,7 +249,7 @@ class KursveranstaltungenController extends Controller
     {
         $model = $this->findModel($id);
         $model->deleted_kv = 1;
-
+        $model->save();
         return $this->redirect(['index']);
     }
 

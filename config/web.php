@@ -39,7 +39,7 @@ $config = [
         ],
         'formatter' => [
             'dateFormat' => 'dd.MM.YYYY',
-            'datetimeFormat' => 'dd.MM.yyyy H:mm:ss'
+            'datetimeFormat' => 'dd.MM.yyyy hh:mm:ss'
         ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation

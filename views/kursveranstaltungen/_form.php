@@ -96,20 +96,19 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 <div class="col-sm-6">
                                     <?= $form->field($modul, "[{$i}]von_mv")->widget(DateTimePicker::class, [
                                         'options' => ['placeholder' => 'Geben Sie bitte das Beginn Datum des Moduls ein...'],
-                                        'convertFormat' => true,
+                                    
                                         'pluginOptions' => [
                                             'autoclose' => true,
-                                            'format' => 'dd.mm.yyyy HH:i'
+                                            'format' => 'dd.mm.yyyy hh:ii'
                                         ]
                                     ]); ?>
                                 </div>
                                 <div class="col-sm-6">
                                     <?= $form->field($modul, "[{$i}]bis_mv")->widget(DateTimePicker::class, [
                                         'options' => ['placeholder' => 'Geben Sie bitte das Ende Datum des Moduls ein...'],
-                                        'convertFormat' => true,
                                         'pluginOptions' => [
                                             'autoclose' => true,
-                                            'format' => 'dd.mm.yyyy HH:i'
+                                            'format' => 'dd.mm.yyyy hh:ii'
                                         ]
                                     ]) ?>
                                 </div>
