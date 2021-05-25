@@ -2,6 +2,10 @@
         <img src=".\web\images\symbolApplikation.png">
 </p>
 
+# Webapplikation
+
+This repository for an School project od the Ferdinand Porsche FernFH. It uses discordjs to interact with Discord.
+
 
 ## requirements
 
