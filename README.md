@@ -77,7 +77,7 @@ Now Yii will try to create the Tables and Foreign Key for this applikation.
 User Manual
 -------------
 
-To use this Applikation you have to Signup for it. To Signup you have to choose an username, you have to use an Email to receive mails and you have to choose a password.
+To use this application you have to Signup for it. To signup you have to enter an Username, an emailadress and an password.
 
 <p align="center">
         <img src=".\web\images\usage_webapplikation\Signup_form.png">
@@ -89,7 +89,7 @@ If your user is created you will become following message.
         <img src=".\web\images\usage_webapplikation\Signup_form_result.png">
 </p>
 
-Now you schould have received an Email on your given Mailadresse with an Link in it. Wenn you follow this link your user is enabled an you will be logged in automatically to use the applikation.
+Now you schould have received an Email on your given Mailadress with an Link. Wenn you follow this link your user is enabled an you will be logged in automatically to use the applikation.
 
 Now you can create Courses in this Applikation. This is shown on the top Menu
 <p align="center">
