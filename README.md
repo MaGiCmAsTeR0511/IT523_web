@@ -4,7 +4,7 @@
 
 # Webapplikation
 
-This repository for an School project od the Ferdinand Porsche FernFH. It uses discordjs to interact with Discord.
+This repository for an School project of the Ferdinand Porsche FernFH. This is the webapplikation Site to insert courses. This courses an dtheir Details will be send to Discord in an specific channel.
 
 
 ## requirements
