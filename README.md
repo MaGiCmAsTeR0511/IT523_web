@@ -4,7 +4,7 @@
 
 # Webapplikation
 
-This repository is for an University project of the Ferdinand Porsche FernFH. This is the webapplikation Site to insert courses. This courses an dtheir Details will be send to Discord in an specific channel.
+This repository is for an University project of the Ferdinand Porsche FernFH. This is the webapplikation Site to insert courses. These courses and their details will be sent to Discord within an specific channel.
 
 
 ## requirements
@@ -13,17 +13,17 @@ This repository is for an University project of the Ferdinand Porsche FernFH. Th
 * If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
 at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix)   
 * [Git](https://git-scm.com/) for Download repository 
-* Database i used an Mysql database but it schoould alos work on SQL, Porstgres as well
+* MySQL database was used (but it should also work on SQL and PorstgreSQL as well)
 
 
 INSTALLATION
 ------------
 
 ### Install via Composer
-You have to go in the Directory you have downloaded the repository. Then you need to run following Command in an cmd of your Choice.
+You have to go in the directory where you have downloaded the repository. The following command has to be executed in a console (cmd) of your choice:
 `composer install` or `composer update`. 
 
-Now the necessary Dependencies will be installed that the Applikation will work properly.
+Now the necessary dependencies will be installed, so that the application will work properly.
 
 CONFIGURATION
 -------------
@@ -65,64 +65,63 @@ Edit the file `config/mailer.php` with real data, for  Example
 ```
 
 ### Run Migrations
-Migrations are the Way that Yii provides to generate Tables in your database.
+Migrations are the way to generate Tables in your database provided by Yii.
 
-To do this you have to run a console in your root-Directory of the application then you have to use this command: yii migrate  
+To do this you have to run a console in your root-directory of the application. Afterwards you have to use the following command: `yii migrate`  
 
-You will be asked if yii should axecute this migrations you have to accept this with Yes.
+You will be asked if yii should execute these migrations (accept with Yes).
 
-Now Yii will try to create the Tables and Foreign Key for this applikation.
+Now Yii will try to create the tables and foreign key for this application.
 
 
-### Now your Applikation should be ready to run on your Webserver
+### Now your application should be ready to run on your Webserver
 
 
 
 User Manual
 -------------
 
-To use this application you have to Signup for it. To signup you have to enter an Username, an emailadress and an password.
+To use this application you have to signup first. Therefore just enter an username, a mail address and a password.
 
 <p align="center">
         <img src=".\web\images\usage_webapplikation\Signup_form.png">
 </p>
 
-If your user is created you will become following message.
+If your user is created you will receive following message.
 
 <p align="center">
         <img src=".\web\images\usage_webapplikation\Signup_form_result.png">
 </p>
 
-Now you schould have received an Email on your given Mailadress with an Link. Wenn you follow this link your user is enabled an you will be logged in automatically to use the applikation.
+Now you should have received a mail with a link. By clicking on the link your user is enabled and you will be logged in automatically to use the application.
 
-Now you can create Courses in this Applikation. This is shown on the top Menu
+Now you can start creating new courses within the application. This is shown on the top menu
 <p align="center">
         <img src=".\web\images\usage_webapplikation\logged_in.png">
 </p>
 
 ### Course Creation
 
-To create an Course that the DiscordUser can attend and register for this course.
-To create an course you have to fill in the following fields.
+To create a course that the Discord-user can attend and register for you have to fill in the following fields.
 
 <p align="center">
         <img src=".\web\images\usage_webapplikation\kurs_veranstaltung anlegen.png">
 </p>
 
-In "Modulveranstaltungen" you cann add more modules this can be done with the green plus. You can delete modules aswell. The minimum number of modules is 1.
+In "Modulveranstaltungen" you can add more modules. This can be done with the green plus. You can delete modules as well. The minimum number of modules is 1.
 
-When the Course is created you will be directed to an detailsview. Hier ar the inserted values listed again.
+When the course is created you will be directed to a details-view. Here the user can find the inserted values listed again.
 <p align="center">
         <img src=".\web\images\usage_webapplikation\kurs_details.png">
 </p>
 
-In this view you can update oder delted this course if you want.
+In this view you can update or delete courses if you want.
 
 
-In you Overview of all your created Courses you can update oder delete the course directly with the pencil_icon (update) and trash_bin (delete);
+In you overview of all your created courses you can update or delete the course directly with the pencil_icon (update) and trash_bin (delete).
 
 <p align="center">
         <img src=".\web\images\usage_webapplikation\kurs_veranstaltungen_überischt.png">
 </p>
 
-After you created the Course it will be automatically send to the DiscordServer. 
+After you create a course it will be sent automatically to the DiscordServer.
